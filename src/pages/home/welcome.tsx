@@ -10,7 +10,7 @@ import {
 
 function Welcome() {
     return (
-      <SimpleGrid columns={{ sm:1, md:2 }} p="2">
+      <SimpleGrid columns={{ sm:1, md:2 }} p="2" maxW="xl">
         <Flex>
             <Center w="100%">
                 <Image src={logo} alt="logo" objectFit="cover" backgroundColor="teal" borderRadius="full" boxSize="150px"/>

@@ -8,8 +8,11 @@ class NewsClient {
     private apiBaseUrl: string | undefined;
 
     constructor() {
-        this.apiBaseUrl = process.env.NEW_API_URL
-        this.apiKey = process.env.NEW_API_URL
+
+        console.log(process.env);
+        
+        this.apiBaseUrl = process.env.REACT_APP_NEWS_API_URL
+        this.apiKey = process.env.REACT_APP_NEWS_API_KEY
         this.axios = axios.create(this.getAxiosConfig()) 
     }
 
@@ -22,9 +25,11 @@ class NewsClient {
         };
     }
 
-    public async getHeadlines({}: HeadlinesRequest): Promise<HeadlinesResponse>  {
+    public async getHeadlines(request: HeadlinesRequest): Promise<HeadlinesResponse>  {
         try {
-            const response = await this.axios.get<HeadlinesResponse>("/top-headlines");
+            const urlParams = this.buildUrlParams(request);
+            const url = `/top-headlines?${urlParams}`
+            const response = await this.axios.get<HeadlinesResponse>(url);
             return response.data;
         } catch(e) {
             console.log(e);
@@ -34,6 +39,14 @@ class NewsClient {
                 message: "Falha ao obter últimas notícias"
             }
         }
+    }
+
+    private buildUrlParams(request: HeadlinesRequest): string {
+
+        const strRequest = {...request, pageSize: String(request.pageSize), page: String(request.page)}
+        const sp = new URLSearchParams(strRequest);
+        return sp.toString();
+        
     }
 }
 
