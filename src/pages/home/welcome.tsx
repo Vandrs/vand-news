@@ -20,7 +20,7 @@ function Welcome() {
             <Box>
                 <Center w="100%">
                     <Heading as="h1">
-                        Welcome to Vand News.
+                        Welcome to Vand News - Updated and Upgraded.
                     </Heading>  
                 </Center>
             </Box>
